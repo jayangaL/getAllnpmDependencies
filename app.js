@@ -1,20 +1,15 @@
 const express = require('express');
 const app = express();
-// const morgan = require('morgan');
 const bodyparser = require('body-parser');
 
 //import routes
 const npmRoutes = require('./app/routes/npmRoutes');
 
-
-// app.use(morgan('dev'));
-// //app.use(express.bodyparser({uploadDir:'/uploads'}));
-// app.use('/uploads', express.static('uploads'));
-app.use(bodyparser.urlencoded({extended: false}));
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyparser.json());
 
 //Handle CROS errors
-app.use((req, res, next) =>{
+app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
@@ -29,7 +24,7 @@ app.use((req, res, next) =>{
     next();
 });
 
-app.all('*', function(req, res, next) {
+app.all('*', function (req, res, next) {
 
     if (req.method === 'OPTIONS') {
         console.log('!OPTIONS');
@@ -62,8 +57,8 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
     res.status(error.status || 500);
     res.json({
-        error : {
-            message : error.message
+        error: {
+            message: error.message
         }
     });
 });
